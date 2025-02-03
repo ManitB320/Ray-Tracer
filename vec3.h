@@ -68,26 +68,26 @@ using point3 = vec3;
 
 //inline skips function call and directly copies the function within
 //display elements of a vector
-inline std::ostream& operator<<(std::ostream& out, vec3& v)
+inline std::ostream& operator<<(std::ostream& out, const vec3& v)
 {
     return out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
 }
 
 //vector addition
-inline vec3 operator+(const vec3& u, const vec3 v )
+inline vec3 operator+(const vec3& u, const vec3& v )
 {
     return vec3(u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2]);
 }
 
 //vector subtraction
-inline vec3 operator-(const vec3& u, const vec3 v )
+inline vec3 operator-(const vec3& u, const vec3& v )
 {
     return vec3(u.e[0] - v.e[0], u.e[1] - v.e[1], u.e[2] - v.e[2]);
 }
 
 
 //vector component wise multiplication
-inline vec3 operator*(const vec3& u, const vec3 v )
+inline vec3 operator*(const vec3& u, const vec3& v )
 {
     return vec3(u.e[0] * v.e[0], u.e[1] * v.e[1], u.e[2] * v.e[2]);
 }
@@ -111,7 +111,7 @@ inline vec3 operator/(const vec3& v, double t)
 }
 
 //dot product
-inline double dot(const vec3& u, const vec3 v)
+inline double dot(const vec3& u, const vec3& v)
 {
     return u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2]; 
 }

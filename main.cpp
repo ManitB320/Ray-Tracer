@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 
+#include "vec3.h"
+#include "color.h"
+
 int main() {
 
     /*
@@ -11,23 +14,28 @@ int main() {
     */
 
     // Image dimensions
-    const int width = 800;
-    const int height = 600;
+    constexpr int width = 800;
+    constexpr int height = 600;
 
     // Open a .ppm file for writing
     std::ofstream imageFile("output.ppm");
     imageFile << "P3\n" << width << " " << height << "\n255\n";
 
-    // Write pixel data (simple gradient)
-    for (int y = height; y > 0; --y) {
+    // To avoid calculating width -1 and height - 1 every loop
+    const double inv_width = 1.0 / (width - 1);
+    const double inv_height = 1.0 / (height - 1);
 
-        std::clog << "\rScanlines Remaining: " << y - 1 << std::flush;
+
+    // Write pixel data (simple gradient)
+    for (int y = height - 1; y >= 0; --y) {
+
+        std::clog << "\rScanlines Remaining: " << y << std::flush;
 
         for (int x = 0; x < width; ++x) {
-            int r = static_cast<int>(255.0 * x / (width - 1));
-            int g = static_cast<int>(255.0 * y / (height - 1));
-            int b = 128;  // constant value for blue
-            imageFile << r << " " << g << " " << b << "\n";
+
+            auto pixel_color = color(double(x) * inv_width, double(y) * inv_height, 128.0);
+
+            write_color(imageFile, pixel_color);
         }
     }
 
